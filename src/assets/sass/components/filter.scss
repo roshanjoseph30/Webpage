@@ -1,0 +1,66 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #EDEDED;
+    --border-color: #cbcbcb;
+    --text-color: #575757;
+}
+
+
+.filter{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 152px;
+    margin: 20px;
+    border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    
+}
+
+.filter-item select {
+    width: 294px;
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    height: 46px;
+    border-radius: 30px;
+    background:none;
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 500;
+    
+}
+.search-item input {
+    width: 440px;
+    border:none;
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.search-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 510px;
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    height: 46px;
+    border-radius: 30px;
+    background:none;
+    button{
+        height: 36px;
+        width: 36px;
+        border: none;
+        border-radius: 50px;
+    }
+    
+}
+
+.search-item input::placeholder {
+    color: var(--text-color);
+    font-weight: 500;
+    opacity: 1;
+}
+
+
