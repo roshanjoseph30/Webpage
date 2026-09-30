@@ -119,8 +119,7 @@
 */
 
 @function toRem($value) {
-  $remValue: math.div($value, 16) + toRem;
-  @return $remValue;
+  @return math.div($value, 16) * 1rem;
 }
 
 /**

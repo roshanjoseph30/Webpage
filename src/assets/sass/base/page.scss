@@ -1,5 +1,9 @@
-body{
+body {
     margin: 60px;
+
+    @include mobile-lg {
+        margin: 16px;
+    }
 }
 
 .visually-hidden {

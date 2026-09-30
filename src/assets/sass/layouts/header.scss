@@ -5,17 +5,38 @@
 }
 
 
-.top-bar{
+.top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     width: 96.5%;
     height: 100px;
-    h1{
+    @include tablet-md {
+        gap: 100px;
+    }
+    @include mobile-lg {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        height: auto;
+        gap: 16px;
+    }
+
+    h1 {
         font-size: 64px;
         margin-left: 100px;
         font-weight: 600;
+        @include tablet-md {
+            font-size: 32px;
+            margin-left: 30px;
+            
+        }
+
+        @include mobile-lg {
+            margin-left: 0;
+            font-size: 32px;
+        }
     }
     button{
         font-weight: 600;
@@ -24,7 +45,12 @@
         border: none;
         width: 157px;
         height: 37px;
+        @include tablet-md {
+            width: 100px;
+            height: 30px;
+        }
     }
+
 
     button:hover{
         background-color: #000;
@@ -32,9 +58,15 @@
     }
 }
 
-.top-bar-right{
+.top-bar-right {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 40px;
+
+    @include mobile-lg {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 12px;
+    }
 }
