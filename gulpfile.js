@@ -16,7 +16,7 @@ const sassOptions = {
     quietDeps: true,
 };
 const htmlmin = require('gulp-htmlmin');
-const cssmin = require('gulp-cssmin');
+const cssmin = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 const concat = require('gulp-concat');
