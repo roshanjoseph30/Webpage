@@ -50,6 +50,8 @@
 
     @include mobile-lg {
         width: 100%;
+        font-size: 13px;
+        height: 40px;
     }
     
 }
@@ -62,7 +64,15 @@
     font-size: 18px;
     color: var(--text-color);
     font-weight: 500;
-    
+    @include tablet-md {
+        
+    }
+
+    @include mobile-lg {
+        font-size: 13px;
+        
+    }
+
 }
 
 .search-item {
@@ -72,14 +82,6 @@
     width: 510px;
     max-width: 100%;
     box-sizing: border-box;
-    @include tablet-md {
-        width: 96%;
-    }
-    
-
-    @include mobile-lg {
-        width: 100%;
-    }
     border: 1px solid var(--border-color);
     padding: 10px 20px;
     height: 46px;
@@ -90,6 +92,15 @@
         width: 36px;
         border: none;
         border-radius: 50px;
+    }
+    @include tablet-md {
+        width: 96%;
+    }
+    
+
+    @include mobile-lg {
+        width: 100%;
+        height: 40px;
     }
     
 }

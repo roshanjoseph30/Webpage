@@ -1,9 +1,12 @@
-.top-left{
+.top-left {
     font-size: 18px;
     font-weight: 600;
     color: #000;
-}
 
+    @include mobile-lg {
+        font-size: 16px;
+    }
+}
 
 .top-bar {
     display: flex;
@@ -11,26 +14,42 @@
     align-items: center;
     border-radius: 10px;
     width: 96.5%;
+    max-width: 100%;
     height: 100px;
-    @include tablet-md {
-        gap: 100px;
+    box-sizing: border-box;
+
+    @include tablet-lg {
+        width: 100%;
     }
+
+    @include tablet-md {
+        gap: 10px;
+        height: auto;
+        min-height: 80px;
+        flex-wrap: wrap;
+    }
+
     @include mobile-lg {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
         height: auto;
-        gap: 16px;
+        gap: 13px;
     }
 
     h1 {
         font-size: 64px;
         margin-left: 100px;
         font-weight: 600;
+
+        @include tablet-lg {
+            font-size: 48px;
+            margin-left: 40px;
+        }
+
         @include tablet-md {
             font-size: 32px;
             margin-left: 30px;
-            
         }
 
         @include mobile-lg {
@@ -38,21 +57,29 @@
             font-size: 32px;
         }
     }
-    button{
+
+    button {
         font-weight: 600;
         background-color: #F7F7F7;
         border-radius: 25px;
         border: none;
         width: 157px;
         height: 37px;
+        flex-shrink: 0;
+
         @include tablet-md {
             width: 100px;
             height: 30px;
         }
+
+        @include mobile-lg {
+            width: 150px;
+            height: 32px;
+            width: 88px;
+        }
     }
 
-
-    button:hover{
+    button:hover {
         background-color: #000;
         color: #fff;
     }
@@ -63,10 +90,17 @@
     justify-content: flex-end;
     align-items: center;
     gap: 40px;
+    flex-wrap: wrap;
+
+    @include tablet-md {
+        gap: 16px;
+        justify-content: flex-start;
+    }
 
     @include mobile-lg {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        font-size: 13px;
+        justify-content: space-evenly;
         gap: 12px;
+        width: 100%;
     }
 }
