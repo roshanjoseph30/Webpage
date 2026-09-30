@@ -19,15 +19,12 @@
     box-sizing: border-box;
 
     @include tablet-lg {
-        width: 100%;
-    }
-
-    @include tablet-md {
         gap: 10px;
         height: auto;
         min-height: 80px;
         flex-wrap: wrap;
     }
+
 
     @include mobile-lg {
         flex-direction: column;
@@ -43,13 +40,8 @@
         font-weight: 600;
 
         @include tablet-lg {
-            font-size: 48px;
-            margin-left: 40px;
-        }
-
-        @include tablet-md {
-            font-size: 32px;
-            margin-left: 30px;
+            font-size: 64px;
+            margin-left: 0px;
         }
 
         @include mobile-lg {
@@ -65,7 +57,7 @@
         border: none;
         width: 157px;
         height: 37px;
-        flex-shrink: 0;
+    
 
         @include tablet-md {
             width: 100px;

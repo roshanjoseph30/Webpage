@@ -2,28 +2,63 @@ const API_URL = "https://fakestoreapi.com/products";
 
 const productsContainer = document.querySelector("#products");
 const loadMoreButton = document.querySelector("#load-more");
+const searchInput = document.querySelector("#search");
 
 let allProducts = [];
+let filteredProducts = [];
+
 let productsToShow = 8;
 const productsPerLoad = 4;
 
+
+// Fetch products
 fetch(API_URL)
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to fetch products");
+        }
+
+        return response.json();
+    })
     .then(products => {
         allProducts = products;
+        filteredProducts = products;
 
         renderProducts();
     })
     .catch(error => {
         console.error("Failed to fetch products:", error);
+
+        productsContainer.innerHTML = `
+            <p class="error-message">
+                Failed to load products. Please try again later.
+            </p>
+        `;
+
+        loadMoreButton.style.display = "none";
     });
 
 
+// Render products
 function renderProducts() {
 
     productsContainer.innerHTML = "";
 
-    const visibleProducts = allProducts.slice(0, productsToShow);
+    // No products found
+    if (filteredProducts.length === 0) {
+
+        productsContainer.innerHTML = `
+            <p class="no-products">
+                No products found.
+            </p>
+        `;
+
+        loadMoreButton.style.display = "none";
+
+        return;
+    }
+
+    const visibleProducts = filteredProducts.slice(0, productsToShow);
 
     visibleProducts.forEach(product => {
 
@@ -63,7 +98,8 @@ function renderProducts() {
     });
 
 
-    if (productsToShow >= allProducts.length) {
+    // Load More button
+    if (productsToShow >= filteredProducts.length) {
         loadMoreButton.style.display = "none";
     } else {
         loadMoreButton.style.display = "block";
@@ -71,10 +107,31 @@ function renderProducts() {
 }
 
 
+// Search
+searchInput.addEventListener("input", () => {
+
+    const searchTerm = searchInput.value.toLowerCase().trim();
+
+    filteredProducts = allProducts.filter(product => {
+
+        return (
+            product.title.toLowerCase().includes(searchTerm) ||
+            product.category.toLowerCase().includes(searchTerm)
+        );
+
+    });
+
+    // Reset number of products
+    productsToShow = 8;
+
+    renderProducts();
+});
+
+
+// Load More
 loadMoreButton.addEventListener("click", () => {
 
     productsToShow += productsPerLoad;
 
     renderProducts();
-
 });

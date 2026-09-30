@@ -171,6 +171,12 @@
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
+    @include mobile-lg {
+        width: 150px;
+        height: 30px;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
 }
 .load-more:hover{
     background-color:#cbcbcb31;
