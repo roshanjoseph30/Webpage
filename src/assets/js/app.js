@@ -90,11 +90,12 @@ function renderProducts() {
 
             <div class="badge">Featured</div>
 
-            <img
-                src="${product.image}"
-                alt="${product.title}"
-            >
-
+            <div class="product-image">
+                <img
+                    src="${product.image}"
+                    alt="${product.title}"
+                >
+            </div>
             <h2>${product.title}</h2>
 
             <div class="rating">
@@ -114,8 +115,7 @@ function renderProducts() {
         productsContainer.appendChild(article);
     });
 
-
-    // Load More button
+  
     if (productsToShow >= filteredProducts.length) {
         loadMoreButton.style.display = "none";
     } else {
@@ -175,6 +175,7 @@ searchInput.addEventListener("input", () => {
 
     }, 300);
 });
+
 
 
 
