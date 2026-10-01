@@ -103,6 +103,10 @@
             left: 10px;
         }
     }
+    .heart-icon.active {
+        color: #ff0000;
+        -webkit-text-stroke: 1px #ff0000;
+    }
 }
 
 .rating {
@@ -158,6 +162,11 @@
             padding: 5px 10px;
         }
     }
+
+    button:hover{
+        background-color:#cbcbcb31;
+        color: var(--primary-color);
+    }
 }
 
 .load-more{
@@ -183,4 +192,6 @@
     color: var(--primary-color);
 
 }
+
+
 

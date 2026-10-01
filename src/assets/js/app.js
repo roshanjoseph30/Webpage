@@ -2,6 +2,7 @@ const API_URL = "https://fakestoreapi.com/products";
 
 const productsContainer = document.querySelector("#products");
 const loadMoreButton = document.querySelector("#load-more");
+const categoryFilter = document.querySelector("#category1");
 const searchInput = document.querySelector("#search");
 
 let allProducts = [];
@@ -11,7 +12,6 @@ let productsToShow = 8;
 const productsPerLoad = 4;
 
 
-// Fetch products
 fetch(API_URL)
     .then(response => {
         if (!response.ok) {
@@ -23,6 +23,8 @@ fetch(API_URL)
     .then(products => {
         allProducts = products;
         filteredProducts = products;
+
+        createCategoryOptions();
 
         renderProducts();
     })
@@ -39,7 +41,23 @@ fetch(API_URL)
     });
 
 
-// Render products
+function createCategoryOptions() {
+    const categories = [...new Set(
+        allProducts.map(product => product.category)
+    )];
+
+    categories.forEach(category => {
+        const option = document.createElement("option");
+
+        option.value = category;
+        option.textContent = category;
+
+        categoryFilter.appendChild(option);
+    });
+}
+
+
+
 function renderProducts() {
 
     productsContainer.innerHTML = "";
@@ -67,7 +85,8 @@ function renderProducts() {
         article.classList.add("product-card");
 
         article.innerHTML = `
-            <button class="heart-icon">♡</button>
+            <button class="heart-icon" 
+             aria-label="Add ${product.title} to favorites">♡</button>
 
             <div class="badge">Featured</div>
 
@@ -79,11 +98,9 @@ function renderProducts() {
             <h2>${product.title}</h2>
 
             <div class="rating">
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
+                <div class="stars" aria-hidden="true">
+                    ${getStars(product.rating.rate)}
+                </div>
 
                 <p>(${product.rating.count} reviews)</p>
             </div>
@@ -106,32 +123,73 @@ function renderProducts() {
     }
 }
 
+categoryFilter.addEventListener("change", () => {
+    const selectedCategory = categoryFilter.value;
 
-// Search
-searchInput.addEventListener("input", () => {
+    if (selectedCategory === "") {
+        filteredProducts = allProducts;
+    } else {
+        filteredProducts = allProducts.filter(product => {
+            return product.category === selectedCategory;
+        });
+    }
 
-    const searchTerm = searchInput.value.toLowerCase().trim();
-
-    filteredProducts = allProducts.filter(product => {
-
-        return (
-            product.title.toLowerCase().includes(searchTerm) ||
-            product.category.toLowerCase().includes(searchTerm)
-        );
-
-    });
-
-    // Reset number of products
     productsToShow = 8;
-
     renderProducts();
 });
 
 
-// Load More
+productsContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("heart-icon")) {
+        event.target.classList.toggle("active");
+
+        if (event.target.classList.contains("active")) {
+            event.target.textContent = "♥";
+            event.target.setAttribute("aria-pressed", "true");
+        } else {
+            event.target.textContent = "♡";
+            event.target.setAttribute("aria-pressed", "false");
+        }
+    }
+});
+
+
+
+let searchTimeout;
+
+searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        filteredProducts = allProducts.filter(product => {
+            return (
+                product.title.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+            );
+        });
+
+        productsToShow = 8;
+        renderProducts();
+
+    }, 300);
+});
+
+
+
 loadMoreButton.addEventListener("click", () => {
 
     productsToShow += productsPerLoad;
 
     renderProducts();
 });
+
+function getStars(rating) {
+    const roundedRating = Math.round(rating);
+
+    const fullStars = "★".repeat(roundedRating);
+    const emptyStars = "☆".repeat(5 - roundedRating);
+
+    return fullStars + emptyStars;
+}
